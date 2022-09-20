@@ -15,10 +15,10 @@
       "type": "cosmosDB",
       "direction": "out",
       "name": "doc",
-      "databaseName": "demodb",
-      "collectionName": "data",
+      "databaseName": "Challenge",
+      "collectionName": "whatever",
       "createIfNotExists": "true",
-      "connectionStringSetting": "AzureCosmosDBConnectionString"
+      "connectionStringSetting": "cosmosDBConnectionString"
     },
     {
       "type": "http",
