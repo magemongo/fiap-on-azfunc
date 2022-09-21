@@ -1,3 +1,4 @@
+from http import client
 import logging
 import azure.functions as func
 import azure.cosmos.cosmos_client as cosmos_client
@@ -17,9 +18,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     radio = req_body.get("radio")
 
     # Cria o Client
-    with cosmos_client.CosmosClient(os.environ["HOST"], {'masterKey': os.environ["MASTER_KEY"]}) as client:
-        db = client.get_database_client(os.environ["DATABASE_ID"])
-        container = db.get_container_client(os.environ["CONTAINER_ID"])
+    client = cosmos_client.CosmosClient(os.environ["HOST"], {'masterKey': os.environ["MASTER_KEY"]})
+    db = client.get_database_client(os.environ["DATABASE_ID"])
+    container = db.get_container_client(os.environ["CONTAINER_ID"])
             
     try:
         # Execute Stored Procedure
@@ -35,4 +36,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             mimetype="application/json"
         )
     except Exception as e:
-        logging.error('\nrun_sample has caught an error. {0}'.format(e.message))
+        logging.error('\nrun_sample has caught an error. {0}'.format(e))
