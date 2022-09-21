@@ -40,7 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # Execute Stored Procedure
     docs = container.scripts.execute_stored_procedure(
-        sproc="testeProc",
+        sproc="uspGetInterests",
         params=[[location, lng, lat, radio]],
         partition_key="pontos-interesse"
     )
