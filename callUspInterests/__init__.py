@@ -17,28 +17,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     radio = req_body.get("radio")
 
     # Cria o Client
+    with cosmos_client.CosmosClient(os.environ["HOST"], {'masterKey': os.environ["MASTER_KEY"]}) as client:
+        db = client.get_database_client(os.environ["DATABASE_ID"])
+        container = db.get_container_client(os.environ["CONTAINER_ID"])
+            
     try:
-        client = cosmos_client.CosmosClient(os.environ["HOST"], {'masterKey': os.environ["MASTER_KEY"]})
-
-
-        # setup database for this sample
-        try:
-            db = client.create_database(id=os.environ["DATABASE_ID"])
-            logging.info('Database with id \'{0}\' created'.format(os.environ["DATABASE_ID"]))
-
-        except exceptions.CosmosResourceExistsError:
-            db = client.get_database_client(os.environ["DATABASE_ID"])
-            logging.info('Database with id \'{0}\' was found'.format(os.environ["DATABASE_ID"]))
-
-        # setup container for this sample
-        try:
-            container = db.create_container(id=os.environ["CONTAINER_ID"], partition_key=PartitionKey(path='/partitionKey'))
-            logging.info('Container with id \'{0}\' created'.format(os.environ["CONTAINER_ID"]))
-
-        except exceptions.CosmosResourceExistsError:
-            container = db.get_container_client(os.environ["CONTAINER_ID"])
-            logging.info('Container with id \'{0}\' was found'.format(os.environ["CONTAINER_ID"]))
-
         # Execute Stored Procedure
         docs = container.scripts.execute_stored_procedure(
             sproc="uspGetInterests",
