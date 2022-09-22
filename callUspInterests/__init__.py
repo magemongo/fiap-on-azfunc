@@ -22,7 +22,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             'id' : str(uuid.uuid4()),
             'partitionKey' : 'consulta-1',
             'tipoConsulta' : 'Explorar',
-            'locationSearch': req_body["location"] if "location" in req_body.keys() else None,
+            'localConsulta': req_body["location"] if "location" in req_body.keys() else None,
             'origem': {'type': 'Point', 'coordinates': [req_body["lng"], req_body["lat"]]},
             'raio': req_body["radio"],
             'qtdDocsRetornados': n_registros,
