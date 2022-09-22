@@ -12,15 +12,6 @@
       ]
     },
     {
-      "type": "cosmosDB",
-      "direction": "out",
-      "name": "doc",
-      "databaseName": "Challenge",
-      "collectionName": "whatever",
-      "createIfNotExists": "true",
-      "connectionStringSetting": "cosmosDBConnectionString"
-    },
-    {
       "type": "http",
       "direction": "out",
       "name": "$return"
