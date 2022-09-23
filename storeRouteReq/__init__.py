@@ -35,14 +35,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info(f"Registro de Consulta armazenado com id {payload['id']}")
             
     try:
-        # Execute Stored Procedure
-        # points_container = db.get_container_client("pontos-de-interesse")
-        # docs = json.loads(points_container.scripts.execute_stored_procedure(
-        #     sproc="uspGetInterests",
-        #     params=[req_body],
-        #     partition_key="pontos-interesse"
-        # ))
-        # n = len(docs) if isinstance(docs, list) else 1
         store_query()
 
         return func.HttpResponse(
